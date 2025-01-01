@@ -1,12 +1,20 @@
+// Fetch the centralized metadata
 async function fetchMetadata() {
   const response = await fetch('https://raw.githubusercontent.com/SKY-DIGITAL-HUB/SRM/main/links.json');
   return response.ok ? response.json() : null;
 }
 
-async function getLinksForFile(MBA, fIN.html) {
+// Get the link for the target repository and file
+async function getLink(repository, file, targetRepository) {
   const metadata = await fetchMetadata();
-  if (metadata && metadata.repositories[repository] && metadata.repositories[test][t.html]) {
-    return metadata.repositories[test][t.html];
+  if (metadata && metadata.repositories[repository] && metadata.repositories[repository][file]) {
+    return metadata.repositories[repository][file][targetRepository] || null;
   }
-  return {};
+  return null;
+}
+
+// Example usage (can be removed in production):
+async function test() {
+  const link = await getLink('SRM', 'index.html', 'test');
+  console.log(link);
 }
