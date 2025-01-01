@@ -1,17 +1,31 @@
-<h1>HI WoRLD</h1>
-<a href="url1">Check</a>
-<script>
-  async function init() {
-    const links = await getLinksForFile('test', 't.html');
-    console.log(links);
-    // Use links dynamically, e.g., create buttons or hyperlinks
-    for (const [repo, url] of Object.entries(links)) {
-      const button = document.createElement('a');
-      button.href = url;
-      button.textContent = `Go to ${repo}`;
-      button.style.display = 'block';
-      document.body.appendChild(button);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File 1 in reos1</title>
+</head>
+<body>
+  <h1>Welcome to File 1 in reos1</h1>
+  <button id="dynamic-button">Loading...</button>
+
+  <!-- Include the central link-manager.js -->
+  <script src="https://raw.githubusercontent.com/SKY-DIGITAL-HUB/SRM/main/link-manager.js"></script>
+  <script>
+    async function init() {
+      const button = document.getElementById('dynamic-button');
+      
+      // Get the dynamic link
+      const link = await getLink('SRM', 'index.html', 'test');
+      if (link) {
+        button.textContent = "Go to File 2 in reos2";
+        button.onclick = () => window.location.href = link;
+      } else {
+        button.textContent = "Link not found";
+        button.disabled = true;
+      }
     }
-  }
-  init();
-</script>
+    init();
+  </script>
+</body>
+</html>
