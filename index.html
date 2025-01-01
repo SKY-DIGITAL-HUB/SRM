@@ -3,30 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File 1 in reos1</title>
+  <title>Index in SRM</title>
 </head>
 <body>
-  <h1>Welcome to File 1 in reos1</h1>
+  <h1>Welcome to SRM</h1>
 
   <!-- Hyperlink -->
-<a id="dynamic-link" href="https://raw.githubusercontent.com/SKY-DIGITAL-HUB/test/main/t.html">Go to File 2 in reos2</a>
+  <a id="dynamic-link" href="#">Loading...</a>
 
-  <!-- Include the central link-manager.js -->
-  <script src="https://raw.githubusercontent.com/SKY-DIGITAL-HUB/SRM/main/link-manager.js"></script>
+  <!-- Include the JavaScript -->
   <script>
+    async function fetchMetadata() {
+      try {
+        const response = await fetch('https://raw.githubusercontent.com/SKY-DIGITAL-HUB/SRM/main/links.json');
+        return response.ok ? response.json() : null;
+      } catch (error) {
+        console.error("Error fetching metadata:", error);
+        return null;
+      }
+    }
+
+    async function getLink(repository, file, targetRepository) {
+      const metadata = await fetchMetadata();
+      if (metadata && metadata.repositories[repository] && metadata.repositories[repository][file]) {
+        return metadata.repositories[repository][file][targetRepository];
+      }
+      return null; // Return null if no link is found
+    }
+
     async function init() {
       const linkElement = document.getElementById('dynamic-link');
-      
-      // Get the dynamic link
-      const link = await getLink('SRM', 'index.html', 'test');
+      const link = await getLink('SRM', 'index.html', 'test'); // Adjust parameters as per your use case
+
       if (link) {
-        linkElement.textContent = "Go to File 2 in reos2";
-        linkElement.href = link; // Set the href dynamically
+        linkElement.textContent = "Go to t.html in test";
+        linkElement.href = link; // Set the dynamic link
       } else {
         linkElement.textContent = "Link not found";
         linkElement.href = "#";
       }
     }
+
     init();
   </script>
 </body>
