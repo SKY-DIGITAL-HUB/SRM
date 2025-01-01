@@ -1,2 +1,17 @@
 <h1>HI WoRLD</h1>
-<a href="www.google.com">Check</a>
+<a href="url1">Check</a>
+<script>
+  async function init() {
+    const links = await getLinksForFile('test', 't.html');
+    console.log(links);
+    // Use links dynamically, e.g., create buttons or hyperlinks
+    for (const [repo, url] of Object.entries(links)) {
+      const button = document.createElement('a');
+      button.href = url;
+      button.textContent = `Go to ${repo}`;
+      button.style.display = 'block';
+      document.body.appendChild(button);
+    }
+  }
+  init();
+</script>
