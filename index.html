@@ -7,22 +7,24 @@
 </head>
 <body>
   <h1>Welcome to File 1 in reos1</h1>
-  <button id="dynamic-button">Loading...</button>
+
+  <!-- Hyperlink -->
+  <a id="dynamic-link" href="#">Loading...</a>
 
   <!-- Include the central link-manager.js -->
   <script src="https://raw.githubusercontent.com/SKY-DIGITAL-HUB/SRM/main/link-manager.js"></script>
   <script>
     async function init() {
-      const button = document.getElementById('dynamic-button');
+      const linkElement = document.getElementById('dynamic-link');
       
       // Get the dynamic link
       const link = await getLink('SRM', 'index.html', 'test');
       if (link) {
-        button.textContent = "Go to File 2 in reos2";
-        button.onclick = () => window.location.href = link;
+        linkElement.textContent = "Go to File 2 in reos2";
+        linkElement.href = link; // Set the href dynamically
       } else {
-        button.textContent = "Link not found";
-        button.disabled = true;
+        linkElement.textContent = "Link not found";
+        linkElement.href = "#";
       }
     }
     init();
