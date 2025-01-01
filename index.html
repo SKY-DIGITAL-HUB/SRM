@@ -3,48 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Index in SRM</title>
+  <title>Dynamic SRM Website</title>
 </head>
 <body>
-  <h1>Welcome to SRM</h1>
-
-  <!-- Hyperlink -->
-  <a id="dynamic-link" href="#">Loading...</a>
-
-  <!-- Include the JavaScript -->
-  <script>
-    async function fetchMetadata() {
-      try {
-        const response = await fetch('https://raw.githubusercontent.com/SKY-DIGITAL-HUB/SRM/main/links.json');
-        return response.ok ? response.json() : null;
-      } catch (error) {
-        console.error("Error fetching metadata:", error);
-        return null;
-      }
-    }
-
-    async function getLink(repository, file, targetRepository) {
-      const metadata = await fetchMetadata();
-      if (metadata && metadata.repositories[repository] && metadata.repositories[repository][file]) {
-        return metadata.repositories[repository][file][targetRepository];
-      }
-      return null; // Return null if no link is found
-    }
-
-    async function init() {
-      const linkElement = document.getElementById('dynamic-link');
-      const link = await getLink('SRM', 'index.html', 'test'); // Adjust parameters as per your use case
-
-      if (link) {
-        linkElement.textContent = "Go to t.html in test";
-        linkElement.href = link; // Set the dynamic link
-      } else {
-        linkElement.textContent = "Link not found";
-        linkElement.href = "#";
-      }
-    }
-
-    init();
-  </script>
+  <h1>Welcome to the SRM Website</h1>
+  <ul>
+    <li><a href="/fetch-file?repository=MBA&filepath=index.html">Go to MBA</a></li>
+    <li><a href="/fetch-file?repository=BCom&filepath=index.html">Go to BCom</a></li>
+  </ul>
 </body>
 </html>
